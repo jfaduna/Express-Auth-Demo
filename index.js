@@ -54,12 +54,16 @@ app.post('/login', async (req, res) => {
     }
 })
 
+app.post('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/login')
+})
+
 app.get('/secret', (req, res) => {
     if (!req.session.user_id) {
         res.redirect('/login')
-    } else {
-        res.send('You must be logged in to see this page.')
     }
+    res.render('secret')
 })
 
 app.listen(3000, () => {
